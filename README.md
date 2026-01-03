@@ -14,7 +14,8 @@ The application uses a **FastAPI backend**, a **React (Vite) frontend**, and **S
 | Ritujaa B G    | bgritujaa2006@gmail.com                  |
 
 
-### Demo Video link : 
+### Demo Video
+[Watch Demo Video](https://drive.google.com/file/d/1jhKWltTo22KAnXa-v78Fn6ygWvH1Q94D/view?usp=drive_link)
 
 ## Features
 
