@@ -63,27 +63,27 @@ The application uses a **FastAPI backend**, a **React (Vite) frontend**, and **S
 
 ---
 
-# Backend and Frontend Commands (FastAPI + React)
+## Backend and Frontend Commands (FastAPI + React)
 
-# Navigate to backend
+### Navigate to backend
 cd backend
 
-# Create virtual environment
+### Create virtual environment
 python -m venv venv
 
-# Activate virtual environment
+### Activate virtual environment
 venv\Scripts\activate
 
-# Run FastAPI server
+### Run FastAPI server
 uvicorn main:app --reload
 
-# Navigate to frontend
+### Navigate to frontend
 cd frontend
 
-# Install dependencies
+### Install dependencies
 npm install
 
-# Run development server
+### Run development server
 npm run dev
 
 
