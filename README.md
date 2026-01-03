@@ -14,7 +14,7 @@ The application uses a **FastAPI backend**, a **React (Vite) frontend**, and **S
 | Ritujaa B G    | bgritujaa2006@gmail.com                  |
 
 
-## Demo Video link : 
+### Demo Video link : 
 
 ## Features
 
@@ -33,7 +33,7 @@ The application uses a **FastAPI backend**, a **React (Vite) frontend**, and **S
 - Activities are filtered by city
 
 ### Budget Tracking
-- Each activity has a predefined budget (`avg_cost`)
+- Each activity has a predefined budget
 - Activity budget is shown on each activity card
 - Clicking an activity:
   - Adds it to the selected day
@@ -58,14 +58,13 @@ The application uses a **FastAPI backend**, a **React (Vite) frontend**, and **S
 - FastAPI
 - SQLAlchemy
 - Pydantic
-- SQLite / PostgreSQL
+- SQLite
 
 
 ---
 
-# Backend and Frontend Commands (FastAPI)
+# Backend and Frontend Commands (FastAPI + React)
 
-```bash
 # Navigate to backend
 cd backend
 
