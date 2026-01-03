@@ -1,35 +1,70 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard'; // <--- THIS IMPORT IS CRITICAL
+import Dashboard from './pages/Dashboard';
 import CreateTrip from './pages/CreateTrip';
 import ItineraryBuilder from './pages/ItineraryBuilder';
+import Profile from './pages/Profile';
 
-const Layout = ({ children }) => {
-  const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
-  return (
-    <>
-      {!isAuthPage && <Navbar />}
-      {children}
-    </>
-  );
-};
+function App() {
+  // Protected Route wrapper
+  const ProtectedRoute = ({ children }) => {
+    const isAuthenticated = localStorage.getItem('userId');
+    return isAuthenticated ? children : <Navigate to="/login" />;
+  };
 
-export default function App() {
   return (
-    <BrowserRouter>
-      <Layout>
+    <Router>
+      <div className="App">
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} /> {/* <--- THIS ROUTE IS CRITICAL */}
-          <Route path="/create-trip" element={<CreateTrip />} />
-          <Route path="/builder/:tripId" element={<ItineraryBuilder />} />
+          
+          {/* Protected Routes */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/create-trip" 
+            element={
+              <ProtectedRoute>
+                <CreateTrip />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/itinerary/:tripId" 
+            element={
+              <ProtectedRoute>
+                <ItineraryBuilder />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Default redirect */}
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
-      </Layout>
-    </BrowserRouter>
+      </div>
+    </Router>
   );
 }
+
+export default App;

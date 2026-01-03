@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Compass } from 'lucide-react';
+import { registerUser } from '../api';
 
 export default function Register() {
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // Simulate signup -> Go to Dashboard
-    navigate('/dashboard');
+    try {
+      const res = await registerUser(formData);
+
+      // OPTIONAL: save user data
+      localStorage.setItem("userId", res.data.user_id);
+      localStorage.setItem("userName", res.data.name);
+
+      navigate('/dashboard');
+    } catch (err) {
+      alert(err.response?.data?.detail || "Registration failed");
+      console.error(err);
+    }
   };
 
   return (
@@ -22,24 +45,53 @@ export default function Register() {
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary outline-none" placeholder="Alex Explorer" />
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border"
+            />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary outline-none" placeholder="alex@email.com" />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border"
+            />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input type="password" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary outline-none" placeholder="••••••••" />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border"
+            />
           </div>
-          
-          <button type="submit" className="w-full bg-primary hover:bg-blue-900 text-white font-bold py-3 rounded-lg transition transform hover:scale-[1.02]">
+
+          <button
+            type="submit"
+            className="w-full bg-primary text-white font-bold py-3 rounded-lg"
+          >
             Create Account
           </button>
         </form>
 
         <p className="mt-6 text-center text-gray-600">
-          Already have an account? <Link to="/login" className="text-secondary font-bold hover:underline">Log in</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="text-secondary font-bold hover:underline">
+            Log in
+          </Link>
         </p>
       </div>
     </div>
