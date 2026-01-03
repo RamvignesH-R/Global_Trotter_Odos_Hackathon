@@ -3,9 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard'; // <--- THIS IMPORT IS CRITICAL
+import Dashboard from './pages/Dashboard';
 import CreateTrip from './pages/CreateTrip';
 import ItineraryBuilder from './pages/ItineraryBuilder';
+import BudgetView from './pages/BudgetView'; // <--- NEW IMPORT
+import Community from './pages/Community';   // <--- NEW IMPORT (We will create this next)
 
 const Layout = ({ children }) => {
   const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
@@ -25,9 +27,12 @@ export default function App() {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} /> {/* <--- THIS ROUTE IS CRITICAL */}
+          
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-trip" element={<CreateTrip />} />
           <Route path="/builder/:tripId" element={<ItineraryBuilder />} />
+          <Route path="/budget/:tripId" element={<BudgetView />} /> {/* <--- NEW ROUTE */}
+          <Route path="/community" element={<Community />} />       {/* <--- NEW ROUTE */}
         </Routes>
       </Layout>
     </BrowserRouter>
